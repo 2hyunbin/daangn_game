@@ -1,0 +1,320 @@
+<div class="start-container">
+  <img src="<%= asset_path('daangnee.png') %>" alt="당근 게임 로고" class="game-logo">
+  <h1>🥕 당근 게임 🥕</h1>
+  
+  <div class="audio-controls">
+    <div class="volume-label">🔊 음악 볼륨</div>
+    <input type="range" id="volumeSlider" min="0" max="100" step="1" value="50" class="volume-slider" style="padding: 0;">
+    <div class="volume-value">50%</div>
+  </div>
+  
+
+  <form id="start-form" class="start-form">
+
+  <ol>
+    <li>두 점을 클릭하여 사각형 영역을 선택합니다</li>
+    <li>선택한 영역의 숫자 합이 10이 되면 제거됩니다</li>
+    <li>제한 시간 2분 동안 최대한 많은 점수를 획득하세요</li>
+    <li>당근을 지우면 4점을 더 얻습니다</li>
+  </ol>
+  
+    <div class="form-group">
+      <label for="nickname">닉네임</label>
+      <input type="text" id="nickname" required>
+    </div>
+
+    <div class="form-group">
+      <label for="region">지역</label>
+      <select id="region" required>
+        <option value="">지역을 선택하세요</option>
+        <option value="중고거래실">중고거래실</option>
+        <option value="Local Jobs">Local Jobs</option>
+        <option value="버티컬 사업실">버티컬 사업실</option>
+        <option value="Karrot Ads">Karrot Ads</option>
+        <option value="Local Business">Local Business</option>
+        <option value="커뮤니티실">커뮤니티실</option>
+        <option value="Search & Discovery 부문">Search & Discovery 부문</option>
+        <option value="Service Core 부문">Service Core 부문</option>
+        <option value="Chatting">Chatting</option>
+        <option value="Global Business 부문">Global Business 부문</option>
+        <option value="서비스 운영실">서비스 운영실</option>
+        <option value="마케팅 브랜딩 부문">마케팅 브랜딩 부문</option>
+        <option value="재무실">재무실</option>
+        <option value="경영지원실">경영지원실</option>
+        <option value="경영팀">경영팀</option>
+        <option value="인프라실">인프라실</option>
+        <option value="Tech Core">Tech Core</option>
+        <option value="CSO">CSO</option>
+        <option value="당근페이">당근페이</option>
+      </select>
+    </div>
+
+    <button type="submit" class="start-button">게임 시작</button>
+  </form>
+</div>
+
+<% content_for :styles do %>
+  <style>
+    .start-container {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .game-logo {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 20px;
+      display: block;
+      border-radius: 30px;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 30px;
+      color: #333;
+    }
+    
+    .audio-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .volume-label {
+      font-size: 16px;
+      margin-right: 10px;
+      color: #555;
+    }
+    
+    .volume-slider {
+      width: 120px;
+      margin: 0 10px;
+    }
+    
+    .volume-value {
+      font-size: 14px;
+      color: #666;
+      min-width: 40px;
+    }
+
+    .start-form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+      box-sizing: border-box;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+    select {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 16px;
+      padding-right: 40px;
+    }
+
+    /* 볼륨 슬라이더 스타일링 */
+    .volume-slider {
+      height: 6px;
+      background: #ddd;
+      border-radius: 3px;
+      cursor: pointer;
+      margin-top: 5px;
+    }
+
+    .volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      background: #ff6f0f;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all .2s ease;
+      margin-top: -5px;
+    }
+
+    .volume-slider::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      background: #ff6f0f;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all .2s ease;
+      margin-top: -5px;
+    }
+
+    .volume-slider::-webkit-slider-runnable-track {
+      height: 6px;
+      background: linear-gradient(to right, #ff6f0f 0%, #ff6f0f var(--value, 50%), #ddd var(--value, 50%), #ddd 100%);
+      border-radius: 3px;
+      border: none;
+    }
+
+    .volume-slider::-moz-range-track {
+      height: 6px;
+      background: #ddd;
+      border-radius: 3px;
+      border: none;
+    }
+
+    .volume-slider::-moz-range-progress {
+      height: 6px;
+      background: #ff6f0f;
+      border-radius: 3px;
+    }
+
+    select::-ms-expand {
+      display: none;
+    }
+
+    .start-button {
+      background: #ff6f0f;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 18px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .start-button:hover {
+      background: #ff5500;
+    }
+
+    /* 게임 규칙 스타일 */
+    h1 {
+      color: #ff6f0f;
+      font-size: 24px;
+      margin: 0 0 20px 0;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #ff6f0f;
+    }
+
+    .start-form ol {
+      list-style: none;
+      padding: 0;
+      counter-reset: rule-counter;
+    }
+
+    .start-form ol li {
+      position: relative;
+      margin-bottom: 15px;
+      padding: 10px 15px 10px 45px;
+      background-color: #fff8f3;
+      border-radius: 8px;
+      font-size: 16px;
+      line-height: 1.5;
+      counter-increment: rule-counter;
+      transition: transform 0.2s ease;
+    }
+
+    .start-form ol li:hover {
+      transform: translateX(5px);
+    }
+
+    .start-form ol li::before {
+      content: counter(rule-counter);
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 24px;
+      height: 24px;
+      background-color: #ff6f0f;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 14px;
+    }
+  </style>
+<% end %>
+
+<% content_for :scripts do %>
+  <script>
+    // 볼륨 설정
+    const setupVolumeControl = () => {
+      const volumeSlider = document.getElementById('volumeSlider')
+      const volumeValue = document.querySelector('.volume-value')
+      
+      // 슬라이더 채우기 효과 업데이트 함수
+      const updateSliderFill = (value) => {
+        volumeSlider.style.setProperty('--value', `${value}%`)
+      }
+      
+      // 저장된 볼륨 값 복원
+      const savedVolume = localStorage.getItem('gameVolume')
+      if (savedVolume) {
+        const volumePercent = Math.round(savedVolume * 100)
+        volumeSlider.value = volumePercent
+        volumeValue.textContent = `${volumePercent}%`
+        updateSliderFill(volumePercent)
+      } else {
+        updateSliderFill(50) // 기본값
+      }
+      
+      // 볼륨 조절
+      volumeSlider.addEventListener('input', () => {
+        const volumePercent = volumeSlider.value
+        const volume = volumePercent / 100
+        volumeValue.textContent = `${volumePercent}%`
+        localStorage.setItem('gameVolume', volume.toString())
+        updateSliderFill(volumePercent)
+      })
+    }
+
+    // 페이지 로드 시 볼륨 컨트롤 설정
+    document.addEventListener('DOMContentLoaded', setupVolumeControl)
+
+    // 게임 시작 폼 제출
+    document.getElementById('start-form').addEventListener('submit', (e) => {
+      e.preventDefault()
+      
+      const nickname = document.getElementById('nickname').value
+      const region = document.getElementById('region').value
+      const volumePercent = document.getElementById('volumeSlider').value
+      const volume = volumePercent / 100
+      
+      localStorage.setItem('nickname', nickname)
+      localStorage.setItem('region', region)
+      localStorage.setItem('gameVolume', volume.toString())
+      localStorage.setItem('gameMuted', 'false') // 게임 시작 시 음소거 해제 
+    
+      window.location.href = '/games/play'
+    })
+  </script>
+<% end %>

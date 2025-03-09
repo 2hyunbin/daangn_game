@@ -1,0 +1,256 @@
+<div class="rankings-container">
+  <h1>당근 게임 랭킹</h1>
+
+  <% if @current_score && @current_nickname %>
+    <div class="current-player-stats">
+      <h2><%= @current_nickname %>님의 게임 결과</h2>
+      <div class="stats-details">
+        <p class="score">🎯 점수: <%= @current_score %>점</p>
+        <p class="percentile">🏆 상위 <%= @percentile %>% (<%= @current_rank %> / <%= @total_players %>)</p>
+      </div>
+    </div>
+  <% end %>
+  
+  <div class="rankings-tabs">
+    <button class="tab-button active" data-tab="overall">전체 순위</button>
+    <button class="tab-button" data-tab="regional">지역별 순위</button>
+  </div>
+  
+  <div class="tab-content active" id="overall-tab">
+    <h2>전체 순위</h2>
+    <table class="rankings-table">
+      <thead>
+        <tr>
+          <th>순위</th>
+          <th>닉네임</th>
+          <th>지역</th>
+          <th>점수</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @top_players.each_with_index do |player, index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= player.nickname %></td>
+            <td><%= player.region %></td>
+            <td><%= player.score %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="tab-content" id="regional-tab">
+    <% if @current_region.present? %>
+      <h2><%= @current_region %> 순위</h2>
+      <div class="region-stats">
+        <p class="region-rank">지역 내 <%= @region_total_players %>명 중 <%= @region_rank %>등</p>
+        <p class="region-percentile">지역 상위 <%= @region_percentile %>%</p>
+      </div>
+      
+      <h3>지역 TOP 10</h3>
+      <table class="rankings-table">
+        <thead>
+          <tr>
+            <th>순위</th>
+            <th>닉네임</th>
+            <th>점수</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @region_top_players.each_with_index do |player, index| %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= player.nickname %></td>
+              <td><%= player.score %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p class="no-region">지역 정보가 없습니다.</p>
+    <% end %>
+  </div>
+  
+  <div class="buttons">
+    <a href="<%= root_path %>" class="button">새 게임 시작</a>
+  </div>
+</div>
+
+<% content_for :styles do %>
+  <style>
+    .rankings-container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    h1 {
+      font-size: 32px;
+      margin-bottom: 30px;
+      color: #333;
+    }
+    
+    .rankings-tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    
+    .tab-button {
+      padding: 10px 20px;
+      margin: 0 5px;
+      background-color: #f8f8f8;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    
+    .tab-button.active {
+      background-color: #ff6f0f;
+      color: white;
+      border-color: #ff6f0f;
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    h1 {
+      color: #ff6f0f;
+      font-size: 24px;
+      margin: 0 0 20px 0;
+      padding-bottom: 15px;
+    }
+
+    .rankings-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    
+    .rankings-table th, .rankings-table td {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .rankings-table th {
+      background-color: #f8f8f8;
+      font-weight: bold;
+    }
+    
+    .buttons {
+      margin-top: 30px;
+    }
+    
+    .button {
+      display: inline-block;
+      padding: 12px 25px;
+      background-color: #ff6f0f;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+      font-size: 16px;
+      transition: background 0.2s;
+    }
+    
+    .button:hover {
+      background-color: #ff5500;
+    }
+
+    /* 현재 플레이어 게임 결과 스타일 */
+    .current-player-stats {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      border: 2px solid #ff6f0f;
+    }
+
+    .current-player-stats h2 {
+      color: #ff6f0f;
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+
+    .stats-details {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+    }
+
+    .stats-details p {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .stats-details .score {
+      color: #ff6f0f;
+      font-size: 22px;
+    }
+
+    .stats-details .percentile {
+      color: #2ecc71;
+    }
+
+    .region-stats {
+      background: #f8f8f8;
+      padding: 15px;
+      border-radius: 6px;
+      margin: 20px 0;
+      text-align: center;
+    }
+    
+    .region-stats p {
+      margin: 5px 0;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    
+    .region-rank {
+      color: #ff6f0f;
+    }
+    
+    .region-percentile {
+      color: #2ecc71;
+    }
+    
+    .no-region {
+      text-align: center;
+      padding: 30px;
+      color: #666;
+      font-size: 18px;
+    }
+    
+    h3 {
+      margin: 20px 0;
+      color: #333;
+      font-size: 20px;
+    }
+  </style>
+<% end %>
+
+<% content_for :scripts do %>
+  <script>
+    document.querySelectorAll('.tab-button').forEach(button => {
+      button.addEventListener('click', () => {
+        // 모든 탭과 컨텐츠 비활성화
+        document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'))
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'))
+        
+        // 클릭한 탭과 해당 컨텐츠 활성화
+        button.classList.add('active')
+        document.getElementById(`${button.dataset.tab}-tab`).classList.add('active')
+      })
+    })
+  </script>
+<% end %>
