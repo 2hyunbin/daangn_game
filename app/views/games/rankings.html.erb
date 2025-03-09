@@ -12,12 +12,12 @@
   <% end %>
   
   <div class="rankings-tabs">
-    <button class="tab-button active" data-tab="overall">전체 순위</button>
+    <button class="tab-button active" data-tab="overall">당근 전체 순위</button>
     <button class="tab-button" data-tab="regional">지역별 순위</button>
   </div>
   
   <div class="tab-content active" id="overall-tab">
-    <h2>전체 순위</h2>
+    <h2>당근 전체 말랑뇌 순위</h2>
     <table class="rankings-table">
       <thead>
         <tr>
@@ -42,7 +42,7 @@
   
   <div class="tab-content" id="regional-tab">
     <% if @current_region.present? %>
-      <h2><%= @current_region %> 순위</h2>
+      <h2><%= @current_region %> 말랑뇌 순위</h2>
       <div class="region-stats">
         <p class="region-rank">지역 내 <%= @region_total_players %>명 중 <%= @region_rank %>등</p>
         <p class="region-percentile">지역 상위 <%= @region_percentile %>%</p>
