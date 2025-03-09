@@ -7,6 +7,11 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <!-- 구글 폰트 추가 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=East+Sea+Dokdo&family=Jua&display=swap" rel="stylesheet">
+
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     
@@ -35,6 +40,27 @@
     </script>
 
     <style>
+      /* 기본 폰트 설정 */
+      body {
+        font-family: 'Jua', sans-serif;
+      }
+
+      h1, h2, h3 {
+        font-family: 'Black Han Sans', sans-serif;
+      }
+
+      .countdown {
+        font-family: 'Black Han Sans', sans-serif;
+      }
+
+      .cell {
+        font-family: 'Jua', sans-serif;
+      }
+
+      .special-effect {
+        font-family: 'Black Han Sans', sans-serif;
+      }
+
       @media screen and (orientation: portrait) {
         html {
           transform: rotate(-90deg);
