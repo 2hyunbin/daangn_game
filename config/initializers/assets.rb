@@ -13,4 +13,4 @@ Rails.application.config.assets.paths << Rails.root.join('app', 'assets', 'audio
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 
 # Add audio files to the asset pipeline
-Rails.application.config.assets.precompile += %w( *.mp3 )
+Rails.application.config.assets.precompile += %w( audio/*.mp3 )
