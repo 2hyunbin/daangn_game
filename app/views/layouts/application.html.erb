@@ -3,7 +3,6 @@
   <head>
     <title>당근 게임</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta http-equiv="ScreenOrientation" content="autoRotate:disabled">
     <meta name="description" content="당근이세요?">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -18,30 +17,6 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
-    
-    <script>
-      // 화면 가로 모드 강제
-      function lockScreenOrientation() {
-        try {
-          if (screen.orientation && screen.orientation.lock) {
-            screen.orientation.lock('landscape').catch(function(error) {
-              console.log('화면 방향 고정 실패:', error);
-            });
-          } else if (screen.lockOrientation) {
-            screen.lockOrientation('landscape');
-          } else if (screen.mozLockOrientation) {
-            screen.mozLockOrientation('landscape');
-          } else if (screen.msLockOrientation) {
-            screen.msLockOrientation('landscape');
-          }
-        } catch (error) {
-          console.log('화면 방향 고정 실패:', error);
-        }
-      }
-
-      // 페이지 로드 시 실행
-      document.addEventListener('DOMContentLoaded', lockScreenOrientation);
-    </script>
 
     <style>
       /* 기본 폰트 설정 */
@@ -63,19 +38,6 @@
 
       .special-effect {
         font-family: 'Black Han Sans', sans-serif;
-      }
-
-      @media screen and (orientation: portrait) {
-        html {
-          transform: rotate(-90deg);
-          transform-origin: left top;
-          width: 100vh;
-          height: 100vw;
-          overflow-x: hidden;
-          position: absolute;
-          top: 100%;
-          left: 0;
-        }
       }
     </style>
     
