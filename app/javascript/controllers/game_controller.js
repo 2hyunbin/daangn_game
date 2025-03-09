@@ -296,43 +296,39 @@ export default class extends Controller {
     const toggleButton = document.getElementById('toggleAudio')
     const volumeSlider = document.getElementById('volumeSlider')
     
-    bgMusic.volume = 0.5 // 기본 볼륨
-    
     // 음악 상태 복원
-    const isMuted = localStorage.getItem('gameMuted') === 'true'
     const volume = localStorage.getItem('gameVolume')
-    
-    if (isMuted) {
-      bgMusic.muted = true
-      toggleButton.textContent = '🔇'
-    } else {
-      bgMusic.muted = false
-      toggleButton.textContent = '🔊'
-    }
+    const isMuted = localStorage.getItem('gameMuted') === 'true'
     
     if (volume) {
       bgMusic.volume = parseFloat(volume)
       volumeSlider.value = volume
+    } else {
+      bgMusic.volume = 0.5 // 기본 볼륨
     }
     
-    // 게임 시작시 자동 재생 (사용자 인터랙션 필요)
+    // 음소거 상태 설정
+    bgMusic.muted = isMuted
+    toggleButton.textContent = isMuted ? '🔇' : '🔊'
+    
+    // 페이지 로드 시 자동 재생 시도
+    const playPromise = bgMusic.play()
+    
+    if (playPromise !== undefined) {
+      playPromise.catch(error => {
+        console.log("자동 재생이 차단되었습니다:", error)
+        // 자동 재생이 실패한 경우 사용자 인터랙션을 기다립니다
+      })
+    }
+    
+    // 음소거 토글 버튼 이벤트
     toggleButton.addEventListener('click', () => {
       if (bgMusic.paused) {
         bgMusic.play()
-        bgMusic.muted = false
-        toggleButton.textContent = '🔊'
-        localStorage.setItem('gameMuted', 'false')
-      } else {
-        if (bgMusic.muted) {
-          bgMusic.muted = false
-          toggleButton.textContent = '🔊'
-          localStorage.setItem('gameMuted', 'false')
-        } else {
-          bgMusic.muted = true
-          toggleButton.textContent = '🔇'
-          localStorage.setItem('gameMuted', 'true')
-        }
       }
+      bgMusic.muted = !bgMusic.muted
+      toggleButton.textContent = bgMusic.muted ? '🔇' : '🔊'
+      localStorage.setItem('gameMuted', bgMusic.muted.toString())
     })
     
     // 볼륨 조절
@@ -340,14 +336,13 @@ export default class extends Controller {
       bgMusic.volume = volumeSlider.value
       localStorage.setItem('gameVolume', volumeSlider.value)
       
-      // 볼륨이 0이면 음소거 아이콘으로 변경
       if (parseFloat(volumeSlider.value) === 0) {
-        toggleButton.textContent = '🔇'
         bgMusic.muted = true
+        toggleButton.textContent = '🔇'
         localStorage.setItem('gameMuted', 'true')
       } else if (bgMusic.muted) {
-        toggleButton.textContent = '🔊'
         bgMusic.muted = false
+        toggleButton.textContent = '🔊'
         localStorage.setItem('gameMuted', 'false')
       }
     })
