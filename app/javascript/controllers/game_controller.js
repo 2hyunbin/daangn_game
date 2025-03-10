@@ -16,7 +16,7 @@ export default class extends Controller {
     this.setupAudio()
   }
 
-  initializeGame() {
+  async initializeGame() {
     console.log('Game initialization started')
     this.selectedCells = new Set()
     this.createGrid()
@@ -60,7 +60,7 @@ export default class extends Controller {
     let currentTime = this.timeLimitValue
     const totalTime = this.timeLimitValue
     
-    this.timer = setInterval(() => {
+    this.timer = setInterval(async() => {
       currentTime = currentTime - 0.3
       this.timeLimitValue = Math.floor(currentTime)
       this.timerTarget.textContent = this.formatTime(Math.floor(currentTime))
@@ -70,7 +70,7 @@ export default class extends Controller {
       this.progressBarTarget.style.width = `${progressPercentage}%`
       
       if (currentTime <= 0) {
-        this.endGame()
+        await this.endGame()
       }
     }, 300)
   }
@@ -239,18 +239,18 @@ export default class extends Controller {
     this.scoreTarget.textContent = this.scoreValue
   }
 
-  endGame() {
+  async endGame() {
     clearInterval(this.timer)
     // 진행 바를 0%로 설정
     this.progressBarTarget.style.width = '0%'
-    this.saveScore()
+    await this.saveScore()
     this.showGameOver()
   }
 
-  saveScore() {
+  async saveScore() {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').content
     
-    fetch('/players', {
+    await fetch('/players', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
